@@ -1,0 +1,20 @@
+[
+  {
+    "name" : "kopi halus",
+    "actual_stock" : "3010",
+    "remaining_stock" : "3004",
+    "uom" : "gram"
+  },
+  {
+    "name" : "kopi kasar",
+    "actual_stock" : "650",
+    "remaining_stock" : "647",
+    "uom" : "gram"
+  },
+  {
+    "name" : "Susu UHT Putih",
+    "actual_stock" : "2030",
+    "remaining_stock" : "2030",
+    "uom" : "ml"
+  }
+]

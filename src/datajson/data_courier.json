@@ -1,0 +1,22 @@
+[
+  {
+    "date_join": "12-04-2021",
+    "name" : "Masduki Tadiono",
+    "email" : "masdukitadiono88@gmail.com",
+    "phone_number": "081222223333",
+    "profil" : "https://paintandsurfacecoating.com/wp-content/uploads/2015/12/speaker-3.jpg",
+    "identity" : "http://1.bp.blogspot.com/-cKbR2Cw8BLU/VrLaPvhz9pI/AAAAAAAAAcE/Pe9LhaTN1sY/s1600/Scan%2BKTP.JPG",
+    "lat" : 3.554540,
+    "lng" : 98.636750
+  },
+  {
+    "date_join": "12-04-2021",
+    "name" : "Masduki Tadiono 1",
+    "email" : "masdukitadiono99@gmail.com",
+    "phone_number": "081222223333",
+    "profil" : "https://paintandsurfacecoating.com/wp-content/uploads/2015/12/speaker-3.jpg",
+    "identity" : "http://1.bp.blogspot.com/-cKbR2Cw8BLU/VrLaPvhz9pI/AAAAAAAAAcE/Pe9LhaTN1sY/s1600/Scan%2BKTP.JPG",
+    "lat" : 3.586060,
+    "lng" : 98.693400
+  }
+]

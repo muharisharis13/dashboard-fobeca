@@ -1,0 +1,5 @@
+ [
+    {"name" : "Kopi halus", "qty" : "20" , "uom" : "ml"},
+    {"name" : "gula aren", "qty" : "20" , "uom" : "kg"},
+    {"name" : "susu uht", "qty" : "20" , "uom" : "ml"}
+]
