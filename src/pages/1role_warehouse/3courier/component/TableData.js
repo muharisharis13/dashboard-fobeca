@@ -1,3 +1,4 @@
+import moment from 'moment'
 import React, { useState } from 'react'
 import { ButtonVDiv } from '../../../../component/element/button/Button'
 import { Thead, Tbody } from '../../../../component/element/table/table'
@@ -35,16 +36,16 @@ export const TableData = ({ data }) => {
           {
             data.map((item, index) => (
               <tr key={index}>
-                <td>{item.date_join}</td>
-                <td>{item.name}</td>
+                <td>{moment(item.date).format('DD MMM YYYY')}</td>
+                <td>{item.full_name}</td>
                 <td style={{ textAlign: 'left' }}>
                   <div className="row">
                     <div className="col-md-3" > <strong>Email</strong> </div>
-                    <div className="col-md-auto" style={{ justifyContent: 'flex-start', display: 'flex', alignItems: 'center' }}> : {item.email} </div>
+                    <div className="col-md-auto" style={{ justifyContent: 'flex-start', display: 'flex', alignItems: 'center' }}> : {item.courier_info.email} </div>
                   </div>
                   <div className="row">
                     <div className="col-md-3" > <strong>Phone Number</strong> </div>
-                    <div className="col-md-auto" style={{ justifyContent: 'flex-start', display: 'flex', alignItems: 'center' }}> : {item.phone_number} </div>
+                    <div className="col-md-auto" style={{ justifyContent: 'flex-start', display: 'flex', alignItems: 'center' }}> : {item.courier_info.phone_number} </div>
                   </div>
                 </td>
                 <td>

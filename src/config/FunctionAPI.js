@@ -26,6 +26,17 @@ export const MakeGet = async function ({ url }) {
     })
 }
 
+export const MakeGetomney = async function ({ url }) {
+  return await fetch(
+    `${baseApi}${url}`,
+    MethodGet({ token: token })
+  )
+    .then(res => res.json())
+    .catch(e => {
+      console.error('err : ', e)
+    })
+}
+
 export const RenewToken = async function () {
 
   const data = {

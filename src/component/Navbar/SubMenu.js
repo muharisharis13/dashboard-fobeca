@@ -6,7 +6,7 @@ import { Context } from '../../config/Context'
 const SideBarLink = styled(NavLink)`
 display:flex;
 color: ${({ itemPath }) => (itemPath === window.location.pathname ? '#fff' : '#000')};
-justify-content: space-beetwen;
+justify-content: space-between;
 align-items:center;
 padding:20px;
 list-style:none;
@@ -19,14 +19,14 @@ font-weight:650;
 left:0%;
 background-color : ${({ itemPath }) => (itemPath === window.location.pathname ? '#000' : 'transparent')};
 
-border-radius:10px;
+border-radius:5px;
 
 &:hover {
   background : #000;
   cursor:pointer;
   text-decoration: none;
   color:white;
-  border-radius:10px;
+  border-radius:5px;
   
 }
 `
@@ -36,7 +36,6 @@ margin-left:16px;
 `
 
 const DropDwonLink = styled(NavLink)`
-background : transparent;
 height: ${({ navbar }) => (navbar ? '40px' : '0px')};
 padding-left:2rem;
 display:flex;
@@ -46,15 +45,23 @@ color: ${({ itemPath }) => (itemPath === window.location.pathname ? '#fff' : '#0
 font-size:18px;
 transition:340ms;
 background-color : ${({ itemPath }) => (itemPath === window.location.pathname ? '#000' : 'transparent')};
-  border-radius:10px;
+border-radius:5px;
+
+transition: height 0.5s;
+transition-timing-function: ease;
 
 &:hover {
   background: #000;
   cursor:pointer;
   color:#fff;
   text-decoration:none;
-  border-radius:10px;
+  border-radius:5px;
 }
+`
+
+const ListDropdown = styled.div`
+display:${({ subnav }) => (subnav ? 'block' : 'none')};
+padding-left:20px;
 `
 
 export const SubMenu = ({ item }) => {
@@ -102,9 +109,9 @@ export const SubMenu = ({ item }) => {
       {subnav && item.subNav.map((item, index) => (
         <DropDwonLink navbar={subnav} itemPath={item.path} to={item.path} key={index}  >
           {item.icon}
-          <SiderBarLabel>
+          <ListDropdown subnav={subnav}>
             {item.title}
-          </SiderBarLabel>
+          </ListDropdown>
         </DropDwonLink>
       ))}
     </div>

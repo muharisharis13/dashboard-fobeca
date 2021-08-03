@@ -8,7 +8,7 @@ import { SubMenu } from './SubMenu';
 import { Context } from '../../config/Context';
 import { FaBars, FaSignOutAlt } from 'react-icons/fa'
 import Logo from '../../images/logo.png'
-import { cookiesRemove } from '../../config/Cookies';
+import { cookiesGet, cookiesRemove } from '../../config/Cookies';
 
 
 
@@ -137,7 +137,7 @@ function Navbar() {
               </div>
 
             </div>
-            <div className="col" style={{ alignItems: 'center', justifyContent: 'start', display: 'flex' }}>
+            {/* <div className="col" style={{ alignItems: 'center', justifyContent: 'start', display: 'flex' }}>
               <div className="row" style={{ width: '100%' }}>
                 <div className="col-sm-6">
                   <strong>Role : {'asdadadasd'}</strong>
@@ -146,7 +146,7 @@ function Navbar() {
                   <strong>Location : {'asdadadasd'}</strong>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </nav>
 
@@ -165,11 +165,11 @@ function Navbar() {
                   <ImgProfile src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="profil" />
                 </div>
                 <div className="col-md-12 col-sm-12">
-                  <strong>{textJam}, Anoo</strong>
+                  <strong>{textJam}, {cookiesGet({ key: 'email' })}</strong>
                 </div>
-                <div className="col-md-12 col-sm-12">
+                {/* <div className="col-md-12 col-sm-12">
                   <ButtonEdit className="btn">Edit Profil</ButtonEdit>
-                </div>
+                </div> */}
               </div>
             </WrapperProfil>
 

@@ -4,6 +4,7 @@ import dataWilayah from '../../../datajson/data_wilayah.json'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import { Maps } from '../../../component/maps/Maps'
+import moment from 'moment'
 
 
 const ImgProfile = styled.img`
@@ -22,7 +23,7 @@ export const DetailsCart = (props) => {
     return <Redirect to="/Cart" />
   }
 
-  console.log(data)
+  // console.log(props.location.data)
   return (
     <div className="container-fluid pb-5">
       <div className="row">
@@ -52,11 +53,11 @@ export const DetailsCart = (props) => {
           <table>
             <tr>
               <th>Date Joined</th>
-              <td>: {data.date_join} </td>
+              <td>: {moment(data.creation_date).format('ddd , DD MMM YYYY')} </td>
             </tr>
             <tr>
               <th>Full Name</th>
-              <td>: {data.name} </td>
+              <td>: {data.outlet_name} </td>
             </tr>
             <tr>
               <th>Email Address</th>
@@ -64,7 +65,7 @@ export const DetailsCart = (props) => {
             </tr>
             <tr>
               <th>Phone Number &nbsp;</th>
-              <td>: {data.phone_number} </td>
+              <td>: {data.outlet_phone} </td>
             </tr>
           </table>
           <table className="mt-5">
@@ -92,15 +93,15 @@ export const DetailsCart = (props) => {
           <table>
             <tr>
               <th>Date Joined</th>
-              <td>: {data.date_join}</td>
+              <td>: {moment(data.creation_date).format('ddd , DD MMM YYYY')}</td>
             </tr>
             <tr>
               <th>Cart Name</th>
-              <td>: {data.name}</td>
+              <td>: {data.outlet_name}</td>
             </tr>
             <tr>
               <th>Address</th>
-              <td>: {data.address}</td>
+              <td>:{`${data.address && data.address.street_name} - ${data.address && data.address.city}, ${data.address && data.address.province}, ${data.address && data.address.country}, ${data.address ? data.address.postcode : '-'} `}</td>
             </tr>
           </table>
         </div>

@@ -6,9 +6,9 @@ import styled from 'styled-components'
 const Input = styled.input`
 border-radius:0px;
 height:100%;
-width:0%;
+width:100%;
 
-border-radius : 50% 0px 0px 50%;
+border-radius : 5px 0px 0px 5px;
 border-right:none;
 transition:450ms;
 
@@ -21,14 +21,14 @@ transition:450ms;
   border-radius : 5px 0px 0px 5px;
 }
 
-&:hover {
+/* &:hover {
   width:100%;
   border-radius : 5px 0px 0px 5px;
-}
+} */
 
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
 display:flex;
 align-items:center;
 justify-content:flex-end;
@@ -48,11 +48,13 @@ const ButtonSearch = styled.span`
  
 `
 
-export const Search = () => {
+export const Search = ({ value, onChange, btnSearch }) => {
   return (
-    <Wrapper>
-      <Input type="text" placeholder="search" className="form-control" />
-      <ButtonSearch>
+    <Wrapper onSubmit={btnSearch}>
+      <Input type="text" placeholder="search" className="form-control"
+        value={value} onChange={onChange}
+      />
+      <ButtonSearch onClick={btnSearch}>
         <FaSearch />
       </ButtonSearch>
     </Wrapper>

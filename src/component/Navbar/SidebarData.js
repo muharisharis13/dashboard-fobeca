@@ -34,11 +34,7 @@ export const SidebarData = [
         path: '/Stock/outstock',
         icon: ''
       },
-      {
-        title: 'Gap Stock',
-        path: '/Stock/gapstock',
-        icon: ''
-      },
+
     ]
   },
   {
@@ -53,9 +49,35 @@ export const SidebarData = [
   },
   {
     title: 'Cart',
-    path: '/Cart',
+    path: '#',
     icon: '',
+    iconClosed: <FaCaretDown />,
+    iconOpened: <FaCaretUp />,
+    subNav: [
+
+      {
+        title: 'In Stock',
+        path: '/Stock/outstocks/history',
+        icon: ''
+      },
+      {
+        title: 'List Cart',
+        path: '/Cart',
+        icon: ''
+      },
+      {
+        title: 'Gap Stock',
+        path: '/Stock/gapstock',
+        icon: ''
+      },
+
+    ]
   },
+  // {
+  //   title: 'Cart',
+  //   path: '/Cart',
+  //   icon: '',
+  // },
   // {
   //   title: 'LogOut',
   //   path: '/login',

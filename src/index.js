@@ -7,6 +7,7 @@ import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Store from './config/Context';
 import Login from './pages/login/login';
+import { Loading } from './component/loading';
 
 const token = sessionStorage.getItem('token')
 
@@ -16,7 +17,7 @@ ReactDOM.render(
       <Router>
         <Switch>
           <Route path="/login" exact component={Login} />
-            <App />
+          <App />
 
         </Switch>
       </Router>

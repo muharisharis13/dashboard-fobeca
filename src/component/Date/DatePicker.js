@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Date = styled(DatePicker2)`
 cursor:pointer;
+height:100%;
 `
 
 
@@ -14,7 +15,7 @@ export const DatePicker = ({ selected, onChange }) => {
   return <Date
     selected={selected}
     onChange={onChange}
-    dateFormat="yyyy-MMM-dd"
+    dateFormat="dd MMMM yyyy"
     className="form-control"
   />
 }

@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { FaTrash, FaPencilAlt } from 'react-icons/fa'
+import { FaTrash, FaPencilAlt, FaPlus } from 'react-icons/fa'
 import Dropdown from '../../../../../component/dropdown/Dropdown'
 import datauom from '../../../../../datajson/data_uom.json'
 import datanamaitem from '../../../../../datajson/data_nama_item.json'
+import { Select } from '../../../../../component/Select/Select'
+import { Input } from '../../../../../component/element/input/Input'
+import { ButtonVDiv } from '../../../../../component/element/button/Button'
+import { Context } from '../../../../../config/Context'
+import { ModalEdit } from '../../../../../component/modal/stock/ModalEdit'
 
 const Thead = styled.thead`
 background: #000;
@@ -15,7 +20,7 @@ const Button = styled.span`
 background: #000;
 color:#fff;
 font-weight:650;
-padding:10px 10px;
+padding:5px 10px;
 cursor:pointer;
 border-radius:5px;
 align-items:center;
@@ -23,114 +28,105 @@ text-align:center;
 justify-content:center;
 `
 
-
-export const TableData = ({ data2, data, setData }) => {
-  const [input, setinput] = useState({
-    name: '',
-    qty: '',
-    uom: ''
-  })
-
-  const options = datanamaitem
-
-  const optionUOM = datauom
+const TdWrapper = styled.div`
+display: flex;
+align-items: center;
+text-align: center;
+justify-content: space-around;
+`
 
 
-
-  const onChange = (e, type) => {
-    if (type === 'name') {
-      setinput({
-        ...input, name: e
-      })
-    }
-    else if (type === 'qty') {
-      setinput({
-        ...input, qty: e.target.value.replace(/[^0-9]+/g, '')
-      })
-    }
-    else if (type === 'uom') {
-      setinput({
-        ...input, uom: e
-      })
-    }
-  }
+export const TableData = ({ data, onChange, value, btnAdd, btnDelete, btnUpdate, qty, }) => {
+  const { loadingButton } = useContext(Context)
+  const [show, setShow] = useState(false)
+  const [index, setIndex] = useState(0)
 
 
-
-  const onClickOk = () => {
-    data.push(input)
-  }
-
-  const btnEdit = value => {
-    console.log(data[value])
-
-    let props = data[value]
-
-    setinput({
-      ...input,
-      name: props.name,
-      qty: props.qty,
-      uom: props.uom
-    })
+  const showModal = (index) => {
+    setShow(!show)
+    setIndex(index)
   }
 
   return (
-    <table className="table table-bordered">
-      {console.log(data)}
-      <Thead>
-        <tr>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Unit Of Measurement</th>
-          <th>Action</th>
-        </tr>
-      </Thead>
-      <tbody style={{ textAlign: 'center' }}>
-        {
-          data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>{item.qty}</td>
-              <td>{item.uom}</td>
-              <td>
-                <div className="row">
-                  <div className="col">
-                    <Button onClick={() => btnEdit(index)} > <FaPencilAlt /> </Button>
-                    <Button> <FaTrash /> </Button>
+    <>
+      <ModalEdit
+        show={show}
+        handleClose={() => setShow(!show)}
+        data={data[index]}
+        btnUpdate={btnUpdate}
+      />
+      <table className="table table-bordered">
+        <Thead>
+          <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Unit Of Measurement</th>
+            <th>Action</th>
+          </tr>
+        </Thead>
+        <tbody style={{ textAlign: 'center' }}>
+          {
+            data.length > 0 ? data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.nama_item}</td>
+                <td>
+                  <TdWrapper>
+                    <Input width={70} id={index} type="text" placeholder="Qty" className="form-control"
+                      value={index === 1 + index ? qty : null} onChange={(e) => onChange(e, 'qty2')}
+                    />
+                  &nbsp;<small>Of</small> &nbsp; {item.qty}
+                  </TdWrapper>
+                </td>
+                <td>{item.vom}</td>
+                <td>
+                  <div className="row">
+                    <div className="col">
+                      <ButtonVDiv onClick={() => btnUpdate(item._id, index, { data2: {}, type: 'table' })}> Update </ButtonVDiv>
+                    </div>
+                    <div className="col">
+                      <ButtonVDiv
+                        onClick={() => showModal(index)}
+                      >
+                        <FaPencilAlt />
+                      </ButtonVDiv>
+                    </div>
+                    <div className="col">
+                      <ButtonVDiv onClick={() => btnDelete(item._id)} > <FaTrash /> </ButtonVDiv>
+                    </div>
                   </div>
+                </td>
+              </tr>
+            ))
+              : null
+          }
+          <tr>
+            <td>
+              <Input type="text" placeholder="Item Name" className="form-control"
+                value={value.nama_item} onChange={(e) => onChange(e, 'nama')}
+              />
+            </td>
+            <td>
+              <Input type="text" placeholder="Quantity" className="form-control"
+                value={value.qty} onChange={(e) => onChange(e, 'qty')}
+              />
+            </td>
+            <td>
+              <Input type="text" placeholder="UoM" className="form-control"
+                value={value.vom} onChange={(e) => onChange(e, 'uom')}
+              />
+            </td>
+            <td>
+              <div className="row">
+                <div className="col">
+                  <ButtonVDiv onClick={btnAdd}>
+                    {loadingButton ? 'Loading' : <><FaPlus /> &nbsp; Add More Item</>}
+                  </ButtonVDiv>
                 </div>
-              </td>
-            </tr>
-          ))
-        }
-        <tr>
-          <td>
-            <Dropdown
-              optionsvalue={options}
-              onChange={(e) => onChange(e, 'name')}
-              value={input.name}
-            />
-
-          </td>
-          <td> <input value={input.quantity} onChange={(e) => onChange(e, 'qty')} type="text" placeholder="Quantity" className="form-control" /> </td>
-          <td>
-            <Dropdown
-              optionsvalue={optionUOM}
-              onChange={(e) => onChange(e, 'uom')}
-              value={input.uom}
-            />
-
-          </td>
-          <td>
-            <div className="row">
-              <div className="col">
-                <Button onClick={onClickOk} >Update</Button>
-
               </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
   )
 }

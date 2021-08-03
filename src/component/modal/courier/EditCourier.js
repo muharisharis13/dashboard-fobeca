@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { FaCloudUploadAlt, FaTimes } from 'react-icons/fa'
 import { ButtonVDiv } from '../../element/button/Button'
 import moment from 'moment'
 import styled from 'styled-components'
+import { Context } from '../../../config/Context'
 
 
 const Input = styled.input`
@@ -22,6 +23,55 @@ align-items:center;
 `
 
 export const EditCourier = ({ show, handleClose, data }) => {
+  const { photo, identity, apiwarehouse } = useContext(Context)
+  const [dataprops, setDataprops] = useState({
+    date: '',
+    full_name: '',
+    email: '',
+    phone_number: ''
+  })
+
+  useEffect(() => {
+    setDataprops({
+      date: data.date,
+      full_name: data.full_name,
+      email: data.courier_info && data.courier_info.email,
+      phone_number: data.courier_info && data.courier_info.phone_number,
+    })
+  }, [data])
+
+  const onChangeValue = function ({ e, v }) {
+
+    switch (v) {
+      case 'full_name':
+        setDataprops({ ...dataprops, full_name: e.target.value })
+        break;
+      case 'email':
+        setDataprops({ ...dataprops, email: e.target.value })
+        break;
+      case 'phone_number':
+        setDataprops({ ...dataprops, phone_number: e.target.value })
+        break;
+
+      default:
+        alert('Error Input')
+        break;
+    }
+  }
+
+  const btnUpdateCourier = function () {
+
+    const data2 = {
+      full_name: dataprops.full_name,
+      email: dataprops.email,
+      phone_number: dataprops.phone_number,
+      identity: data.courier_info.identity_card,
+      photo: data.courier_info.photo
+    }
+
+    apiwarehouse({ type: 'API_POST_UPDATE_COURIER', data: data2, id: data._id })
+  }
+
 
   return (
     <Modal size="lg" show={show} onHide={handleClose}>
@@ -37,36 +87,30 @@ export const EditCourier = ({ show, handleClose, data }) => {
           </div>
           <div className="row mt-4">
             <div className="col-md-5 col-sm-12">
-              <img src={data.profil} alt="profil" width={300} />
-              {/* <ButtonVDiv>
-                  <FaCloudUploadAlt size={25} /> &nbsp; Upload Foto
-                </ButtonVDiv> */}
+              <img src={photo && window.URL.createObjectURL(photo)} alt="profil" width={300} />
             </div>
             <div className="col-md-7 col-sm-12">
               <table style={{ width: '100%' }}>
                 <tr>
                   <th>Date Joined</th>
-                  <Td> {moment(data.date_join).format('DD-MM-YYYY-LTS')} </Td>
+                  <Td> {moment(dataprops.date).format('ddd, DD MMM YYYY')} </Td>
                 </tr>
                 <tr>
                   <th>Full Name</th>
-                  <Td> <Input value={data.name} type="text" placeholder="Full Name" className="form-control" /> </Td>
+                  <Td> <Input value={dataprops.full_name} type="text" placeholder="Full Name" className="form-control" onChange={(e) => onChangeValue({ e: e, v: 'full_name' })} /> </Td>
                 </tr>
                 <tr>
                   <th>Email Address</th>
-                  <Td> <Input value={data.email} type="email" placeholder="Email Address" className="form-control" /> </Td>
+                  <Td> <Input value={dataprops.email} type="email" placeholder="Email Address" className="form-control" onChange={(e) => onChangeValue({ e: e, v: 'email' })} /> </Td>
                 </tr>
                 <tr>
                   <th>Phone Number</th>
-                  <Td> <Input value={data.phone_number} type="text" placeholder="Phone Number" className="form-control" /> </Td>
+                  <Td> <Input value={dataprops.phone_number} type="text" placeholder="Phone Number" className="form-control" onChange={(e) => onChangeValue({ e: e, v: 'phone_number' })} /> </Td>
                 </tr>
               </table>
 
               <div className="col-md-7 mt-4">
-                <img src={data.identity} alt="ktp" width={327} />
-                {/* <ButtonVDiv>
-                    <FaCloudUploadAlt size={25} /> &nbsp; Upload Indentity Card
-                  </ButtonVDiv> */}
+                <img src={identity && window.URL.createObjectURL(identity)} alt="ktp" width={327} />
               </div>
             </div>
           </div>
@@ -74,7 +118,9 @@ export const EditCourier = ({ show, handleClose, data }) => {
           <div className="row mt-5 " >
             <div className="col-md-12 col-sm-12 justify-content-center align-items-center" style={{ display: 'flex' }}>
               <div className="col-md-5">
-                <ButtonVDiv> Edit Courier </ButtonVDiv>
+                <ButtonVDiv onClick={btnUpdateCourier}>
+                  Edit Courier
+                </ButtonVDiv>
               </div>
             </div>
           </div>

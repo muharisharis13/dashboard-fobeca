@@ -13,7 +13,12 @@ const Angka = styled.strong`
 font-size:1.7em;
 `
 
-export const Card = ({ data = {}, icon }) => {
+const Title = styled.div`
+  font-weight:650;
+  font-size:20pt;
+`
+
+export const Card = ({ data, title, icon }) => {
   const Icon = styled(icon)`
   font-size:5em;
   `
@@ -23,8 +28,8 @@ export const Card = ({ data = {}, icon }) => {
         <div className="col-md-4"><Icon /></div>
         <div className="col-md-8">
           <div className="row">
-            <Angka className="col-md-12">{data.angka}</Angka>
-            <div className="col-md-12 mt-3">{data.title}</div>
+            <Angka className="col-md-12">{data}</Angka>
+            <Title className="col-md-12 mt-1">{title}</Title>
           </div>
         </div>
       </div>

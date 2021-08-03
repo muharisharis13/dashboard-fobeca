@@ -24,9 +24,9 @@ export const TableData = ({ data }) => {
           data.map((item, index) => (
             <tr key={index}>
               <td> {index + 1} </td>
-              <td> {item.name} </td>
+              <td> {item.nama_item} </td>
               <td> {item.qty} </td>
-              <td> {item.uom} </td>
+              <td> {item.vom} </td>
             </tr>
           ))
         }

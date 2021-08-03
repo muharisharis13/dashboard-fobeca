@@ -21,7 +21,7 @@ export const OutStock = () => {
   })
 
   const onChange = (e, value, index) => {
-    console.log(index)
+    // console.log(index)
     if (value === 'wilayah') {
       setdata({
         ...data,
@@ -100,7 +100,7 @@ export const OutStock = () => {
       </div>
 
       <div className="row justify-content-center mt-4">
-        <div className="col-md-5 col-sm-12">
+        {/* <div className="col-md-5 col-sm-12">
           <DataInput
             datastock={datastock}
             value={data.Namastock}
@@ -109,10 +109,12 @@ export const OutStock = () => {
             onChangeInput={onChange}
             quantity={quantity}
           />
-        </div>
+        </div> */}
 
-        <div className="col-md-2" style={{ position: 'relative', justifyContent: 'flex-end', display: 'flex' }}>
-          <Button style={{ position: 'absolute', bottom: '0px' }} to="/Stock/outstocks/history">History</Button>
+        <div className="col-md-2"
+        // style={{ position: 'relative', justifyContent: 'flex-end', display: 'flex' }}
+        >
+          <Button to="/Stock/outstocks/history">History</Button>
         </div>
       </div>
 

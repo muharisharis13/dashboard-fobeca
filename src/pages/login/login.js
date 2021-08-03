@@ -92,7 +92,7 @@ const Login = () => {
       .then(res => {
         if (res.status === 'OK') {
           setRedirect(true)
-          console.log(res)
+          // console.log(res)
           // setDataApi(res)
           // sessionStorage.setItem('token', res.token)
           cookiseSet({ key: 'outlet', value: JSON.stringify(res.user.outlet_incharge), expires: Infinity })
@@ -110,8 +110,8 @@ const Login = () => {
   return (
     <div className="container">
       <RowLogo className="row mt-5">
-        spv01@fobeca.id <br />
-        Supervisor01 <br />
+        {/* spv01@fobeca.id <br />
+        Supervisor01 <br /> */}
         <div className="col-md-12 col-sm-12">
           <img width={100} src={LogoIcon} alt="logo" />
         </div>
@@ -121,13 +121,16 @@ const Login = () => {
       </RowLogo>
 
       <FormLogin className="row">
+        {/* <small>
+          catatan : buat update data instock ke outlet untuk update data persediaan outlet
+        </small> */}
         <WrapperLogin className="col-md-5 col-sm-10">
           <div className="row">
             <WrapperInput className="col-md-12 col-sm-12">
               <WrapperIcon>
                 <FaUserCircle />
               </WrapperIcon>
-              <InputUserName placeholder="Password" type="text" className="form-control"
+              <InputUserName placeholder="Email" type="text" className="form-control"
                 value={data.email}
                 onChange={(e) => onChangeValue(e, 'email')}
               />

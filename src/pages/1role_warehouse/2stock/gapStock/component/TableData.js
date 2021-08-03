@@ -1,80 +1,77 @@
 import React from 'react'
 import { Tbody, Thead } from '../../../../../component/element/table/table'
 import styled from 'styled-components'
+import moment from 'moment'
 
 
 const Gap = styled.div`
-color: ${({ gap }) => (gap !== 0 ? 'red' : 'black')}
+color: ${({ gap }) => (gap !== 0 ? 'red' : 'black')};
+font-weight: 600;
 `
 
-export const TableData = ({ data }) => {
+export const TableData = ({ data, selectedOutlet }) => {
+  // console.log('ini data : ', selectedOutlet)
   return (
-    <table className="table">
-      <Thead>
-        <tr>
-          <th>No</th>
-          <th>Outlet ID</th>
-          <th>Informasi Item(s)</th>
-          {/* <th>Actual Stock</th>
-          <th>Remaining Stock</th>
-          <th>Gap</th>
-          <th>UoM</th> */}
-        </tr>
-      </Thead>
-      <Tbody>
-        {
-          data.map((item, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td> {item.outlet_id} </td>
-              <td>
-                {
-                  item.adjustments.map((item, index) => (
-                    <div className="container">
-                      <div key={index} className="row" style={{ padding: '10px 0px', borderBottom: '0.1px solid #E6E6E6', display: 'flex', alignItems: 'center', textAlign: 'left' }}>
-                        <div className="col-sm-3">
-                          Name
-                        </div>
-                        <div className="col-sm-8">
-                          : {item.ingredient_id.name}
-                        </div>
-                        <div className="col-sm-3">
-                          UoM
-                        </div>
-                        <div className="col-sm-8">
-                          : {item.ingredient_id.unit_of_measurement}
-                        </div>
-                        <div className="col-sm-3">
-                          Actual Stock
-                        </div>
-                        <div className="col-sm-8">
-                          : {item.quantity_before}
-                        </div>
-                        <div className="col-sm-3">
-                          Remaining Stock
-                        </div>
-                        <div className="col-sm-8">
-                          : {item.quantity_after}
-                        </div>
-                        <div className="col-sm-3">
-                          Gap
-                        </div>
-                        <Gap gap={item.quantity_before - item.quantity_after} className="col-sm-8">
-                          : {item.quantity_before - item.quantity_after}
-                        </Gap>
-                      </div>
-                    </div>
-                  ))
-                }
-              </td>
-              {/* <td>{item.actual_stock}</td>
-              <td>{item.remaining_stock}</td>
-              <td>{item.actual_stock - item.remaining_stock}</td>
-              <td>{item.uom}</td> */}
+    <>
+      <div className="row pb-4">
+        <div className="col-md-12 col-sm-12">
+          <table>
+            {/* <tr>
+              <th>Outlet ID</th>
+              <td>: {data.length > 0 ? data[0].outlet_id : null}</td>
+            </tr> */}
+            <tr>
+              <th>Outlet Name &nbsp;</th>
+              <td>: {selectedOutlet.label}</td>
             </tr>
-          ))
-        }
-      </Tbody>
-    </table>
+          </table>
+        </div>
+      </div>
+      {
+        data !== [] ? data.map((item, index) => (
+          <div className="row" key={index} style={{ display: 'flex', flexDirection: 'row', textAlign: 'center' }}>
+            <div className="col-md-3 col-sm-3 pt-5">
+              <strong>
+                {moment(item.creation_date).format('DD MMM YYYY')}
+              </strong>
+            </div>
+            <div className="col-md-12 col-sm-12">
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>UoM</th>
+                    <th>Actual Stock</th>
+                    <th>Remaining Stock</th>
+                    <th>Gap</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    item.adjustments ? item.adjustments.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.ingredient_id.name}</td>
+                        <td>{item.ingredient_id.unit_of_measurement}</td>
+                        <td>{item.quantity_before}</td>
+                        <td>{item.quantity_after}</td>
+                        <td>
+                          <Gap gap={item.quantity_before - item.quantity_after} className="col-sm-8">
+                            {item.quantity_before - item.quantity_after}
+                          </Gap>
+                        </td>
+                      </tr>
+                    ))
+                      : null
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        ))
+          : 'nothing Data'
+      }
+
+    </>
   )
 }

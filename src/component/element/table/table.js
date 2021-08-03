@@ -10,7 +10,10 @@ border: 0.1px solid grey;
 export const Tbody = styled.thead`
 text-align : center;
 `
+export const Th = styled.th`
+padding:0px;
+`
 
 export const Td = styled.td`
-padding:5px 0px;
+padding:0px 0px;
 `

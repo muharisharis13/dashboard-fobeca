@@ -6,22 +6,21 @@ import { FaUser, FaExchangeAlt, FaLuggageCart, FaBoxes } from 'react-icons/fa'
 import { BufferStock } from './component/BufferStock'
 import { Redirect } from 'react-router-dom'
 import { Context } from '../../../config/Context'
+import { Loading } from '../../../component/loading'
 
 const Dashboard = () => {
   const [data, setData] = useState({
   })
-  const outlet2 = sessionStorage.getItem('outlet')
-
-  // const [outlet, setoutlet] = useState(outlet2)
-
-  // console.log('ini outlet', outlet)
-
-  const { outlet } = useContext(Context)
-
-  console.log(outlet)
+  const { apiwarehouse, datacourier, datapurchasing, datacart } = useContext(Context)
 
 
+  useEffect(() => {
+    apiwarehouse({ type: 'API_GET_COURIER' })
+    apiwarehouse({ type: 'API_GET_PURCHASING' })
+    apiwarehouse({ type: 'API_GET_CART' })
+  }, [])
 
+  // console.log('ini data courier : ', datacourier.length)
 
   return (
     <div className="container-fluid">
@@ -39,28 +38,32 @@ const Dashboard = () => {
           <div className="row">
             <div className="col-md-6 mt-2">
               <Card
-                data={data}
+                data={datacourier.length}
                 icon={FaUser}
+                title="Courier"
               />
             </div>
             <div className="col-md-6 mt-2">
               <Card
-                data={data}
+                data={datapurchasing.length}
                 icon={FaExchangeAlt}
+                title="Purchasing"
               />
             </div>
           </div>
           <div className="row mt-2">
             <div className="col-md-6 mt-2">
               <Card
-                data={data}
+                data={datacart.length}
                 icon={FaLuggageCart}
+                title="Total Cart"
               />
             </div>
             <div className="col-md-6 mt-2">
               <Card
-                data={data}
+                data={''}
                 icon={FaBoxes}
+                title="Manage Stock"
               />
             </div>
           </div>
